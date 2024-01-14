@@ -41,3 +41,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Lane
+    uniqueID: 1251398083
+    locked: 0
+  - name: Notes
+    uniqueID: 967682229
+    locked: 0
