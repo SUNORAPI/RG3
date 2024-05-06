@@ -1,32 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class NoteMove : MonoBehaviour
 {
-    float HiSpeed = 1f; //HiSpeedの設定の値
-    float Speed = 0.5f; //HiSpeed=1.0fの時の移動量
-    float MoveLength; //1fごとの移動量
-
-    float Movetime = 5f; //まだ渡し元がないので代用、実装時に消す
-
+    public static float Highspeed = 1f; //HiSpeedの設定の値
+    public static float Movetime;
     private void Start()
     {
-        MoveLength = HiSpeed * Speed;
-        Move(Movetime);
+        Movetime = 2f;//暫定,計算式を作れ
+        Move();
     }
-    public void Move(float Movetime)
+    public void Move()
     { 
-        StartCoroutine(NM(Movetime)); //Movetimeはノーツが移動している時間、本来は別スクリプトから渡される。
+        StartCoroutine(NM()); //Movetimeはノーツが移動している時間、本来は別スクリプトから渡される。
     }
 
-    IEnumerator NM(float WaitTime) //動かすスクリプト、時間とかで見直す必要あるかも
+    IEnumerator NM() //動かすスクリプト、時間とかで見直す必要あるかも
     {
-        for (int i = 0; i < 150; i++)
+        var startTime = Time.time;
+        var startPos = transform.position;
+        var endPos = new Vector3(transform.position.x, transform.position.y, -1);
+        while (Time.time < startTime + Movetime)
         {
-            Transform tN = this.gameObject.transform;
-            tN.transform.position -= new Vector3(0, 0, MoveLength);
-            yield return new WaitForSeconds(WaitTime / 150);
+            transform.position = Vector3.Lerp(startPos, endPos, (Time.time - startTime) / Movetime);
+            yield return null;
         }
+        transform.position = endPos;
     }
 }
