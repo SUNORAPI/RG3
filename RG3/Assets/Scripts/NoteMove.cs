@@ -10,7 +10,7 @@ public class NoteMove : MonoBehaviour
     private void Start()
     {
         Movetime = 2f;//b’è,ŒvZ®‚ğì‚ê
-        Move();
+
     }
     public void Move()
     { 
